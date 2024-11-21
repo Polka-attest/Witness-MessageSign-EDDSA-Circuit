@@ -36,14 +36,7 @@ template VerifySignature(){
     // Verifies the origin and destination contract is in the signature
     poseidon.inputs[4] <== origin;
     poseidon.inputs[5] <== destination;
-
-    log(Ax);
-    log(Ay);
-    log(S);
-    log(R8x);
-    log(R8y);
-    log(poseidon.out);
-
+    
     //Verify the signature on the message hash
 
     eddsa.enabled <== 1;
