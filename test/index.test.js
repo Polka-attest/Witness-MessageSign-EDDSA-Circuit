@@ -1,6 +1,7 @@
 
 import assert from "assert";
 import {
+    rbigint,
     poseidon,
     computeMessageHash,
     getEDDSA,
@@ -32,12 +33,14 @@ it("test eddsa message signing", async function () {
 
     const witnessAddr = await getAddressFromPubkey(account.pubKey);
 
+    const nonce = rbigint();
+
     const msgslots = [stringToBigint("mint"), 123121212, stringToBigint("toAddress"), stringToBigint("extraParameter")]
 
     const origin = await poseidon([stringToBigint("origin")])
     const destination = await poseidon([stringToBigint("destination")])
 
-    const messageHash = await computeMessageHash(msgslots, origin, destination);
+    const messageHash = await computeMessageHash(msgslots, origin, destination, nonce);
     const signedMessage = signMessage(eddsa, messageHash, account.prvKey);
 
 
@@ -56,7 +59,8 @@ it("test eddsa message signing", async function () {
                 msgslots,
                 origin,
                 destination,
-                witnessAddr
+                witnessAddr,
+                nonce
 
             },
             snarkArtifacts: {

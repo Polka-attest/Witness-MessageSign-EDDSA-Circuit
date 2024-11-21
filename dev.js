@@ -10,6 +10,7 @@ import {
     getSignatureParameters,
     getAddressFromPubkey,
     stringToBigint,
+    rbigint,
 } from "./lib/index.js";
 
 /**
@@ -28,16 +29,20 @@ async function getInput() {
 
     const witnessAddr = await getAddressFromPubkey(account.pubKey);
 
+    const nonce = rbigint();
+
     const msgslots = [stringToBigint("mint"), 123121212, stringToBigint("toAddress"), stringToBigint("extraParameter")]
 
     const origin = await poseidon([stringToBigint("origin")])
     const destination = await poseidon([stringToBigint("destination")])
 
-    const messageHash = await computeMessageHash(msgslots, origin, destination);
+    const messageHash = await computeMessageHash(msgslots, origin, destination, nonce);
 
     const signedMessage = signMessage(eddsa, messageHash, account.prvKey);
 
     const signatureParameters = getSignatureParameters(eddsa, account.pubKey, signedMessage.signature)
+
+
 
     return {
         Ax: signatureParameters.Ax,
@@ -45,6 +50,7 @@ async function getInput() {
         S: signatureParameters.S,
         R8x: signatureParameters.R8x,
         R8y: signatureParameters.R8y,
+        nonce,
         msgslots,
         origin,
         destination,
@@ -75,7 +81,7 @@ async function testCircuit(filename) {
 
         //Assert the output of your circuit to test it during development
         // await circuit.assertOut(witness, { out: 0 });
-
+        console.log("No errors detected")
     } catch (err) {
         console.log(err)
     } finally {

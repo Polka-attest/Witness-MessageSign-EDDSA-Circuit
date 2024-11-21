@@ -13,9 +13,11 @@ template VerifySignature(){
     // The identifier of the destination contract is a poseidon hash
     signal input destination;
 
-
     //The witness address is computed from the witness pubkey Ax, Ay
     signal input witnessAddr;
+
+    // A nonce parameter to make each message hash unique
+    signal input nonce;
 
     //The parameters for the signature
     //The Ax and Ay parameters are the public key, Ax = pubKey[0], Ay = pubKey[1]
@@ -25,8 +27,9 @@ template VerifySignature(){
     signal input R8x;
     signal input R8y;
 
+
     component eddsa = EdDSAPoseidonVerifier();
-    component poseidon = Poseidon(6);
+    component poseidon = Poseidon(7);
     
     poseidon.inputs[0] <== msgslots[0];
     poseidon.inputs[1] <== msgslots[1];
@@ -36,6 +39,7 @@ template VerifySignature(){
     // Verifies the origin and destination contract is in the signature
     poseidon.inputs[4] <== origin;
     poseidon.inputs[5] <== destination;
+    poseidon.inputs[6] <== nonce;
     
     //Verify the signature on the message hash
 
@@ -57,4 +61,4 @@ template VerifySignature(){
 
 }
 
-component main {public [msgslots,origin, destination,witnessAddr]} = VerifySignature();
+component main {public [msgslots,origin, destination,witnessAddr, nonce]} = VerifySignature();

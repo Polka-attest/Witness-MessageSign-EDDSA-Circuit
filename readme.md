@@ -12,9 +12,11 @@ Poseidon hashing is used.
 
 ## Assertions:
 
-The signed message must be `hash(msgslots[0],msgslots[1],msgslots[2],msgslots[3],origin,destination);
+The signed message must be `hash(msgslots[0],msgslots[1],msgslots[2],msgslots[3],origin,destination,nonce);
 
 All message hash parameters are maximum 20 bytes size.
+
+The nonce is a random number that ensures the messages are unique each time. It can be used for nullification on both the message emitter contracts, it can serve as a message id for witnesses to track and for duplicate messages on the attestation chain and destination chain.
 
 The origin and the destination are both poseidon hashes. The message slot contains arbitrary data, string or bigint or number.
 
