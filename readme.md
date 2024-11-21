@@ -4,7 +4,7 @@ This is a circom project that verifies an EDDSA signed message with a zero knowl
 
 The signed message is composed of 4 message slots, an origin and a destination
 
-Public inputs: msgslots, origin, destiantion, witnessAddr
+Public inputs: msgslots, origin, destiantion, witnessAddr, nonce
 
 Private inputs: Ax, Ay, S, R8x,R8y - Used for the signature
 
