@@ -38,7 +38,7 @@ it("test eddsa message signing", async function () {
     const destination = await poseidon([stringToBigint("destination")])
 
     const messageHash = await computeMessageHash(msgslots, origin, destination);
-    const signedMessage = signMessage(eddsa, messageHash, account.privKey);
+    const signedMessage = signMessage(eddsa, messageHash, account.prvKey);
 
 
     const signatureParameters = getSignatureParameters(eddsa, account.pubKey, signedMessage.signature)
