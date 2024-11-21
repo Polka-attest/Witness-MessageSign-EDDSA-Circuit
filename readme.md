@@ -1,11 +1,24 @@
-# PolkaAttests verify EDDSA
+# PolkaAttest - Witness sign and Verify message using EDDSA
 
-This project is for the PolkaAttest witness signature verification.
-The circuit verifies an EDDSA signature
+This is a circom project that verifies an EDDSA signed message with a zero knowledge proof. 
 
+The signed message is composed of 4 message slots, an origin and a destination
 
+Public inputs: msgslots, origin, destiantion, witnessAddr
 
+Private inputs: Ax, Ay, S, R8x,R8y - Used for the signature
 
+Poseidon hashing is used.
+
+## Assertions:
+
+The signed message must be `hash(msgslots[0],msgslots[1],msgslots[2],msgslots[3],origin,destination);
+
+All message hash parameters are maximum 20 bytes size.
+
+The origin and the destination are both poseidon hashes. The message slot contains arbitrary data, string or bigint or number.
+
+The circuit asserts that the message was signed by the witness address by checking witnessAddress === hash(Ax,Ay)
 
 
 
