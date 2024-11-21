@@ -23,13 +23,21 @@ The origin and the destination are both poseidon hashes. The message slot contai
 The circuit asserts that the message was signed by the witness address by checking witnessAddress === hash(Ax,Ay)
 
 
+## Message
+| Field      | Size      | Description |
+| ------------- | ------------- | ------------- |
+| msgSlot 0 | 20 bytes | The first message slot for arbitrary data |
+| msgSlot 1 | 20 bytes | The second message slot for arbitrary data |
+| msgSlot 2 | 20 bytes | The third message slot for arbitrary data |
+| msgSlot 3 | 20 bytes | The fourth message slot for arbitrary data |
+| origin | 20 bytes | The identifier of the origin, poseidon hash |
+| destination | 20 bytes | The identifier of the destination, poseidon hash |
+| nonce | 20 bytes | Random nonce, unique for each message |
 
 
 
-
-
-
-# NiftyZK CLI
+# Dev
+## NiftyZK CLI
 **Scaffold a new Circom project, generate circuits, compile it and run Powers of Tau Phase-2 ceremonies. Generate a cosmwasm verifier contract. Supports Groth-16 with a BN128 curve**
 
 ## Dependencies
