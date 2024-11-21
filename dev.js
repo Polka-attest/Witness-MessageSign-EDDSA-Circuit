@@ -10,9 +10,6 @@ import {
     getSignatureParameters,
     getAddressFromPubkey,
     stringToBigint,
-    bigintToString,
-    computeProof,
-    verifyProof
 } from "./lib/index.js";
 
 /**
@@ -23,12 +20,6 @@ import {
  * Configure the main entry point file here
  */
 const MAIN = "circuit.circom";
-
-/**
- * This is a test input, generated for the starting circuit.
- * If you update the inputs, you need to update this variable to match it.
- */
-const INPUT = { a: 1, b: 2 }
 
 async function getInput() {
     const eddsa = await getEDDSA();
@@ -44,15 +35,9 @@ async function getInput() {
 
     const messageHash = await computeMessageHash(msgslots, origin, destination);
 
-    const signedMessage = signMessage(eddsa, messageHash, account.privKey);
-
+    const signedMessage = signMessage(eddsa, messageHash, account.prvKey);
 
     const signatureParameters = getSignatureParameters(eddsa, account.pubKey, signedMessage.signature)
-
-    console.log(signatureParameters)
-
-    console.log(messageHash)
-
 
     return {
         Ax: signatureParameters.Ax,
