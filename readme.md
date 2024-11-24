@@ -33,3 +33,4 @@ The circuit asserts that the message was signed by the witness address by checki
 | origin | 20 bytes | The identifier of the origin, poseidon hash |
 | destination | 20 bytes | The identifier of the destination, poseidon hash |
 | nonce | 20 bytes | Random nonce, unique for each message |
+
